@@ -86,7 +86,7 @@ https://github.com/user-attachments/assets/7bd8c48b-310d-4eec-8977-28338f951de3
 ## Why NovaPi Matters
 
 Most embedded projects run on top of an OS or a framework that hides
-the hardware. NovaPi does none of that. Every driver — UART, GPIO,
+the hardware. NovaPi does none of that. Every driver-UART, GPIO,
 framebuffer, timers-is written from scratch and talks directly to
 the hardware registers. The end result is a playable game, but the
 real outcome is a solid understanding of how a computer actually boots,
