@@ -254,7 +254,7 @@ sudo apt install gcc-aarch64-linux-gnu make
 
 **Clone the repository:**
 ```
-git clone https://github.com/YOUR_USERNAME/NovaPi.git
+git clone https://github.com/moxybaba/NovaPi.git
 cd NovaPi
 ```
 **Build:**
