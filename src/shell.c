@@ -77,21 +77,21 @@ int clear(int argc, char *argv[]) {
 }
 
 int info(int argc, char *argv[]) {
-  printf("NovaPi OS (AArch64)\r\n");
-  printf("Exception Level: %d\r\n", get_el());
+  printf(ANSI_BOLD_CYAN "NovaPi OS (AArch64)\r\n" ANSI_RESET);
+  printf("Exception Level: " ANSI_BOLD_YELLOW "%d\r\n" ANSI_RESET, get_el());
   return 0;
 }
 
 int help(int argc, char *argv[]) {
-  printf("Available commands are:\r\n");
+  printf(ANSI_BOLD_GREEN "Available commands are:\r\n" ANSI_RESET);
   for (int i = 0; commands[i].name != 0; ++i) {
-    printf("  %s - %s\r\n", commands[i].name, commands[i].description);
+    printf("  " ANSI_BOLD_YELLOW "%s" ANSI_RESET " - %s\r\n", commands[i].name, commands[i].description);
   }
   return 0;
 }
 
 int pong(int argc, char *argv[]) {
-  printf("Launching pong game ... \n");
+  printf(ANSI_BOLD_MAGENTA "Launching pong game ... \r\n" ANSI_RESET);
   start_pong_game();
   return 0;
 }
@@ -106,16 +106,26 @@ int shell_execute(int argc, char *argv[]) {
       return 0;
     }
   }
-  printf("Command not found: %s\r\n", argv[0]);
+  printf(ANSI_BOLD_RED "Command not found: %s\r\n" ANSI_RESET, argv[0]);
   return 1;
 }
 
 void shell_run() {
   char line_buff[128];
   char *argv[16];
-  printf("\r\n=== Welcome to NovaPi Shell ===\r\n");
+
+  printf(ANSI_BOLD_CYAN "\r\n"
+         "  _   _                 ____  _ \r\n"
+         " | \\ | | _____   ____ _|  _ \\(_)  \r\n"
+         " |  \\| |/ _ \\ \\ / / _` | |_) | | \r\n"
+         " | |\\  | (_) \\ V / (_| |  __/| | \r\n"
+         " |_| \\_|\\___/ \\_/ \\__,_|_|   |_| \r\n"
+         ANSI_RESET);
+  printf(ANSI_BOLD_GREEN "  AArch64 Bare-Metal OS for Raspberry Pi\r\n" ANSI_RESET);
+  printf(ANSI_DIM "  Type 'help' to view available commands.\r\n\r\n" ANSI_RESET);
+
   while (1) {
-    printf("novapi>> ");
+    printf(ANSI_BOLD_CYAN "novapi>> " ANSI_RESET);
     shell_readline(line_buff, sizeof(line_buff));
     int argc = parse_cmdline(line_buff, argv, 16);
     shell_execute(argc, argv);
