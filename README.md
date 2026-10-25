@@ -128,22 +128,23 @@ VCC         →  NOT CONNECTED
 NovaPi/
 ├── include/
 │ ├── peripherals/
-│ │ ├── entry.h
-│ │ ├── gpio.h
-│ │ ├── i2c.h
-│ │ ├── irq.h
-│ │ ├── mailbox.h
-│ │ ├── mini_uart.h
-│ │ ├── mm.h
-│ │ ├── oled.h
-│ │ ├── pl011.h
-│ │ ├── pong.h
-│ │ ├── printf.h
-│ │ ├── spi.h
-│ │ ├── sysregs.h
-│ │ ├── timer.h
-│ │ ├── utils.h
-│ │ └── video.h
+│ ├── entry.h
+│ ├── gpio.h
+│ ├── i2c.h
+│ ├── irq.h
+│ ├── mailbox.h
+│ ├── mini_uart.h
+│ ├── mm.h
+│ ├── oled.h
+│ ├── pl011.h
+│ ├── pong.h
+│ ├── printf.h
+│ ├── shell.h               # Shell declarations and ANSI color codes
+│ ├── spi.h
+│ ├── sysregs.h
+│ ├── timer.h
+│ ├── utils.h
+│ └── video.h
 ├── src/
 │ ├── boot.S                 # AArch64 boot stub
 │ ├── entry.S                # Exception vector table
@@ -153,13 +154,14 @@ NovaPi/
 │ ├── gpio.c                 # GPIO driver
 │ ├── i2c.c                  # I2C driver
 │ ├── irq.c                  # IRQ handler (C)
-│ ├── kernel_main.c          # Entry point + game loop
+│ ├── kernel_main.c          # Kernel entry point
 │ ├── mailbox.c              # GPU mailbox interface
 │ ├── mini_uart.c            # Mini UART driver
 │ ├── mm.S                   # Memory management
 │ ├── oled.c                 # OLED display driver
 │ ├── pong.c                 # Pong game logic
 │ ├── printf.c               # printf implementation
+│ ├── shell.c                # Interactive UART shell & command parser
 │ ├── spi.c                  # SPI driver
 │ ├── timer.c                # System timer
 │ ├── utils.S                # Utility functions
@@ -168,6 +170,33 @@ NovaPi/
 ├── linker.ld                # Linker script
 └── Makefile
 ```
+
+---
+
+##  Interactive UART Shell
+
+NovaPi includes a built-in interactive shell accessible over serial/UART (115200 baud). It features an ASCII boot banner, ANSI colors, live line editing (backspace, enter), and token-based command dispatching.
+
+```text
+  _   _                 ____  _ 
+ | \ | | _____   ____ _|  _ \(_)  
+ |  \| |/ _ \ \ / / _` | |_) | | 
+ | |\  | (_) \ V / (_| |  __/| | 
+ |_| \_|\___/ \_/ \__,_|_|   |_| 
+  AArch64 Bare-Metal OS for Raspberry Pi
+  Type 'help' to view available commands.
+
+novapi>> 
+```
+
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `help`  | Lists all registered shell commands |
+| `info`  | Displays OS information and current ARM Exception Level (EL) |
+| `clear` | Clears terminal screen via ANSI escape codes |
+| `pong`  | Launches the Pong game on the HDMI display |
 
 ---
 
